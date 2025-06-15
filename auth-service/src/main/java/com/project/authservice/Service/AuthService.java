@@ -1,0 +1,13 @@
+package com.project.authservice.Service;
+
+import com.project.authservice.DTO.AuthResponse;
+import com.project.authservice.DTO.LoginRequest;
+import com.project.authservice.DTO.SignupRequest;
+import com.project.authservice.DTO.TokenValidationResponse;
+
+
+public interface AuthService {
+    AuthResponse register(SignupRequest request);
+    AuthResponse login(LoginRequest request);
+    TokenValidationResponse checkToken(String token);
+}

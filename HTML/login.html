@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMVEC-Onboard - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated background elements */
+    .bg-animation {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .bg-animation::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.05) 70%, transparent 70%);
+      animation: moveBackground 20s linear infinite;
+    }
+
+    @keyframes moveBackground {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(0deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(360deg); }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .particle:nth-child(1) { width: 10px; height: 10px; top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 15px; height: 15px; top: 60%; left: 80%; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 8px; height: 8px; top: 80%; left: 20%; animation-delay: 4s; }
+    .particle:nth-child(4) { width: 12px; height: 12px; top: 30%; left: 70%; animation-delay: 1s; }
+    .particle:nth-child(5) { width: 6px; height: 6px; top: 70%; left: 60%; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .website-name {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.5px;
+      z-index: 10;
+      background: linear-gradient(45deg, #ffffff, #f0f0f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 60px 50px;
+      border-radius: 24px;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.05);
+      text-align: center;
+      width: 100%;
+      max-width: 450px;
+      z-index: 10;
+      position: relative;
+      transform: translateY(0);
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-header {
+      margin-bottom: 40px;
+    }
+
+    .login-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-icon i {
+      color: white;
+      font-size: 2rem;
+    }
+
+    h2 {
+      color: #1a1a1a;
+      margin-bottom: 8px;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: left;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #374151;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 1.1rem;
+      z-index: 2;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 18px 18px 18px 50px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1rem;
+      color: #1f2937;
+      background: #ffffff;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: 'Inter', sans-serif;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+      background: #ffffff;
+    }
+
+    input[type="email"]:focus + .input-icon,
+    input[type="password"]:focus + .input-icon {
+      color: #667eea;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      cursor: pointer;
+      font-size: 1.1rem;
+      z-index: 2;
+      transition: color 0.3s ease;
+    }
+
+    .password-toggle:hover {
+      color: #667eea;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button[type="submit"]::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    button[type="submit"]:hover::before {
+      left: 100%;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    .forgot-password {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .forgot-password a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .forgot-password a:hover {
+      color: #5a67d8;
+      text-decoration: underline;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 30px 0;
+      color: #9ca3af;
+      font-size: 0.9rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e5e7eb;
+    }
+
+    .divider span {
+      padding: 0 15px;
+    }
+
+    .social-login {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    .social-btn:hover {
+      border-color: #667eea;
+      transform: translateY(-1px);
+    }
+
+    .social-btn.google { color: #db4437; }
+    .social-btn.microsoft { color: #00a1f1; }
+    .social-btn.apple { color: #000; }
+
+    /* Loading state */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .loading button[type="submit"] {
+      background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .website-name {
+        font-size: 2rem;
+        top: 20px;
+        left: 20px;
+      }
+      
+      .login-container {
+        margin: 20px;
+        padding: 40px 30px;
+        max-width: none;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .website-name {
+        font-size: 1.5rem;
+      }
+      
+      .login-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="website-name">SMVEC-Onboard</div>
+  
+  <div class="login-container">
+    <div class="login-header">
+      <div class="login-icon">
+        <i class="fas fa-user-graduate"></i>
+      </div>
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to your account to continue</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <input type="email" id="email" required placeholder="Enter your email">
+          <i class="fas fa-envelope input-icon"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="password" required placeholder="Enter your password">
+          <i class="fas fa-lock input-icon"></i>
+          <i class="fas fa-eye password-toggle" onclick="togglePassword()"></i>
+        </div>
+      </div>
+
+      <button type="submit" id="loginBtn">
+        <span>Sign In</span>
+      </button>
+    </form>
+
+    <div class="forgot-password">
+      <a href="#" onclick="showForgotPassword()">Forgot your password?</a>
+    </div>
+
+    <div class="divider">
+      <span>or continue with</span>
+    </div>
+
+    <div class="social-login">
+      <div class="social-btn google" onclick="socialLogin('google')">
+        <i class="fab fa-google"></i>
+      </div>
+      <div class="social-btn microsoft" onclick="socialLogin('microsoft')">
+        <i class="fab fa-microsoft"></i>
+      </div>
+      <div class="social-btn apple" onclick="socialLogin('apple')">
+        <i class="fab fa-apple"></i>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const toggleIcon = document.querySelector('.password-toggle');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+      }
+    }
+
+    function showForgotPassword() {
+      alert('Forgot password functionality would be implemented here');
+    }
+
+    function socialLogin(provider) {
+      alert(`${provider.charAt(0).toUpperCase() + provider.slice(1)} login would be implemented here`);
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      
+      const loginBtn = document.getElementById('loginBtn');
+      const originalText = loginBtn.innerHTML;
+      
+      // Loading state
+      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+      loginBtn.disabled = true;
+      document.querySelector('.login-container').classList.add('loading');
+
+      try {
+        const response = await fetch("http://localhost:8081/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("role", data.role);
+
+          // Success animation
+          loginBtn.innerHTML = '<i class="fas fa-check"></i> Success!';
+          loginBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+          
+          setTimeout(() => {
+            if (data.role === "STUDENT") window.location.href = "studentProfile.html";
+            else if (data.role === "ALUMNI") window.location.href = "alumniProfile.html";
+            else if (data.role === "FACULTY") window.location.href = "facultyProfile.html";
+          }, 1000);
+        } else {
+          throw new Error(data.message || 'Login failed');
+        }
+      } catch (error) {
+        // Error state
+        loginBtn.innerHTML = '<i class="fas fa-times"></i> Login Failed';
+        loginBtn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+        
+        setTimeout(() => {
+          loginBtn.innerHTML = originalText;
+          loginBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+          loginBtn.disabled = false;
+          document.querySelector('.login-container').classList.remove('loading');
+        }, 2000);
+        
+        // Show error message
+        showError(error.message);
+      }
+    });
+
+    function showError(message) {
+      const errorDiv = document.createElement('div');
+      errorDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        z-index: 1000;
+        font-weight: 500;
+        animation: slideInRight 0.3s ease-out;
+      `;
+      errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      
+      document.body.appendChild(errorDiv);
+      
+      setTimeout(() => {
+        errorDiv.remove();
+      }, 4000);
+    }
+
+    // Add keyframe animation for error notification
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(100%); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add some interactive effects
+    document.addEventListener('mousemove', (e) => {
+      const particles = document.querySelectorAll('.particle');
+      particles.forEach((particle, index) => {
+        const speed = (index + 1) * 0.00005;
+        const x = e.clientX * speed;
+        const y = e.clientY * speed;
+        particle.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    });
+  </script>
+</body>
+</html>

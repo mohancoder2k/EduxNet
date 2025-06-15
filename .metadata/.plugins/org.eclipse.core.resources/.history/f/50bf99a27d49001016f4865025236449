@@ -1,0 +1,5 @@
+package com.smvec.ProfileService.DTO;
+
+public class FacultyProfileRequest {
+
+}

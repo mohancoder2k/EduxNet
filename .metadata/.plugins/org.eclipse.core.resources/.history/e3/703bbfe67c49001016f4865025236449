@@ -1,0 +1,5 @@
+package com.smvec.ProfileService.Entity;
+
+public class AlumniProfile {
+
+}

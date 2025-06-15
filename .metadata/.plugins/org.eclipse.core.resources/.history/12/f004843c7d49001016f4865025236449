@@ -1,0 +1,5 @@
+package com.smvec.ProfileService.Repository;
+
+public class FacultyProfileRepository {
+
+}

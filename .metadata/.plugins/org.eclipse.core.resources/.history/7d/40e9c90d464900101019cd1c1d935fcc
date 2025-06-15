@@ -1,0 +1,5 @@
+package com.project.authservice.Entity;
+
+public class Role {
+
+}

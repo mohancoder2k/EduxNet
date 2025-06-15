@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.project.authservice.Entity.Role"/>
+    <fullyQualifiedTypeName name="com.project.authservice.JWT.JwtUtil"/>
+    <fullyQualifiedTypeName name="com.project.authservice.Repository.UserRepository"/>
+    <fullyQualifiedTypeName name="com.project.authservice.JWT.JwtAuthenticationFilter"/>
+    <fullyQualifiedTypeName name="com.project.authservice.Service.AuthService"/>
+    <fullyQualifiedTypeName name="com.project.authservice.DTO.AuthResponse"/>
+    <fullyQualifiedTypeName name="com.project.authservice.DTO.SignupRequest"/>
+    <fullyQualifiedTypeName name="com.project.authservice.DTO.LoginRequest"/>
+    <fullyQualifiedTypeName name="com.project.authservice.Entity.User"/>
+    <fullyQualifiedTypeName name="com.project.authservice.DTO.TokenValidationResponse"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
+    <fullyQualifiedTypeName name="org.hibernate.annotations.Table"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.Entity.AlumniProfile"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.Repository.FacultyProfileRepository"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.DTO.StudentProfileRequest"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.Entity.StudentProfile"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.Service.ProfileService"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.DTO.FacultyProfileResponse"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.Entity.FacultyProfile"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.DTO.FacultyProfileRequest"/>
+    <fullyQualifiedTypeName name="com.smvec.ProfileService.DTO.AlumniProfileResponse"/>
+</qualifiedTypeNameHistroy>

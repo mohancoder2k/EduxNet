@@ -1,0 +1,31 @@
+package com.smvec.ProfileService.Entity;
+
+
+
+import lombok.*;
+import org.springframework.data.annotation.Id;
+
+
+
+@Table("student_profiles")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class StudentProfile {
+
+    @Id
+    private Long id;
+
+    private String userEmail;
+
+    private String name;
+
+    private String department;
+
+    private int year;
+
+    private String skills;
+
+    private String githubLink;
+}

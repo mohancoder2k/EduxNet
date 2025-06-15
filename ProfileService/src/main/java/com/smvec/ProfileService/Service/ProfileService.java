@@ -1,0 +1,23 @@
+package com.smvec.ProfileService.Service;
+
+import com.smvec.ProfileService.DTO.*;
+
+public interface ProfileService {
+
+    // STUDENT
+    StudentProfileResponse saveStudentProfile(String token, StudentProfileRequest request);
+    StudentProfileResponse getStudentProfile(String token);
+
+    // ALUMNI
+    AlumniProfileResponse saveAlumniProfile(String token, AlumniProfileRequest request);
+    AlumniProfileResponse getAlumniProfile(String token);
+
+    // FACULTY
+    FacultyProfileResponse saveFacultyProfile(String token, FacultyProfileRequest request);
+    FacultyProfileResponse getFacultyProfile(String token);
+    
+    StudentProfileResponse updateStudentProfile(String token, StudentProfileRequest request);
+    AlumniProfileResponse updateAlumniProfile(String token, AlumniProfileRequest request);
+    FacultyProfileResponse updateFacultyProfile(String token, FacultyProfileRequest request);
+
+}

@@ -1,0 +1,5 @@
+package com.project.authservice.JWT;
+
+public class JwtAuthenticationFilter {
+
+}

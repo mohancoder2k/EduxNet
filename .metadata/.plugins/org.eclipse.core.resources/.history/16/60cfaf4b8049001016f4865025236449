@@ -1,0 +1,166 @@
+package com.smvec.ProfileService.Service;
+
+
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.smvec.ProfileService.DTO.*;
+import com.smvec.ProfileService.Entity.*;
+import com.smvec.ProfileService.Repository.*;
+
+import reactor.core.publisher.Mono;
+
+import java.util.NoSuchElementException;
+
+@Service
+@RequiredArgsConstructor
+public class ProfileServiceImpl implements ProfileService {
+
+    private final StudentProfileRepository studentRepo;
+    private final AlumniProfileRepository alumniRepo;
+    private final FacultyProfileRepository facultyRepo;
+
+    private final WebClient.Builder webClientBuilder;
+
+    @Value("${auth-service.url}")
+    private String authServiceUrl;
+
+    private String extractEmailFromToken(String token) {
+        // Call AuthService to validate token and extract email
+        return webClientBuilder.build()
+                .get()
+                .uri(authServiceUrl + "/auth/check-token")
+                .header("Authorization", token)
+                .retrieve()
+                .bodyToMono(AuthResponse.class)
+                .map(resp -> {
+                    if (resp.isValid()) return resp.getEmail();
+                    else throw new RuntimeException("Invalid token");
+                })
+                .block(); // Blocking here since service is non-reactive (JPA)
+    }
+
+    // STUDENT
+    @Override
+    public StudentProfileResponse saveStudentProfile(String token, StudentProfileRequest request) {
+        String email = extractEmailFromToken(token);
+
+        StudentProfile profile = StudentProfile.builder()
+                .userEmail(email)
+                .name(request.getName())
+                .department(request.getDepartment())
+                .year(request.getYear())
+                .skills(request.getSkills())
+                .github(request.getGithub())
+                .build();
+
+        studentRepo.save(profile);
+
+        return StudentProfileResponse.builder()
+                .userEmail(email)
+                .name(profile.getName())
+                .department(profile.getDepartment())
+                .year(profile.getYear())
+                .skills(profile.getSkills())
+                .github(profile.getGithub())
+                .build();
+    }
+
+    @Override
+    public StudentProfileResponse getStudentProfile(String token) {
+        String email = extractEmailFromToken(token);
+        StudentProfile profile = studentRepo.findByUserEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("Student profile not found"));
+
+        return StudentProfileResponse.builder()
+                .userEmail(email)
+                .name(profile.getName())
+                .department(profile.getDepartment())
+                .year(profile.getYear())
+                .skills(profile.getSkills())
+                .github(profile.getGithub())
+                .build();
+    }
+    @Override
+    public AlumniProfileResponse saveAlumniProfile(String token, AlumniProfileRequest request) {
+        String email = extractEmailFromToken(token);
+
+        AlumniProfile profile = AlumniProfile.builder()
+                .userEmail(email)
+                .name(request.getName())
+                .department(request.getDepartment())
+                .graduationYear(request.getGraduationYear())
+                .profession(request.getProfession())
+                .linkedin(request.getLinkedin())
+                .build();
+
+        alumniRepo.save(profile);
+
+        return AlumniProfileResponse.builder()
+                .userEmail(email)
+                .name(profile.getName())
+                .department(profile.getDepartment())
+                .graduationYear(profile.getGraduationYear())
+                .profession(profile.getProfession())
+                .linkedin(profile.getLinkedin())
+                .build();
+    }
+    @Override
+    public AlumniProfileResponse getAlumniProfile(String token) {
+        String email = extractEmailFromToken(token);
+
+        AlumniProfile profile = alumniRepo.findByUserEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("Alumni profile not found"));
+
+        return AlumniProfileResponse.builder()
+                .userEmail(email)
+                .name(profile.getName())
+                .department(profile.getDepartment())
+                .graduationYear(profile.getGraduationYear())
+                .profession(profile.getProfession())
+                .linkedin(profile.getLinkedin())
+                .build();
+    }
+    @Override
+    public FacultyProfileResponse saveFacultyProfile(String token, FacultyProfileRequest request) {
+        String email = extractEmailFromToken(token);
+
+        FacultyProfile profile = FacultyProfile.builder()
+                .userEmail(email)
+                .name(request.getName())
+                .department(request.getDepartment())
+                .designation(request.getDesignation())
+                .researchInterests(request.getResearchInterests())
+                .build();
+
+        facultyRepo.save(profile);
+
+        return FacultyProfileResponse.builder()
+                .userEmail(email)
+                .name(profile.getName())
+                .department(profile.getDepartment())
+                .designation(profile.getDesignation())
+                .researchInterests(profile.getResearchInterests())
+                .build();
+    }
+    @Override
+    public FacultyProfileResponse getFacultyProfile(String token) {
+        String email = extractEmailFromToken(token);
+
+        FacultyProfile profile = facultyRepo.findByUserEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("Faculty profile not found"));
+
+        return FacultyProfileResponse.builder()
+                .userEmail(email)
+                .name(profile.getName())
+                .department(profile.getDepartment())
+                .designation(profile.getDesignation())
+                .researchInterests(profile.getResearchInterests())
+                .build();
+    }
+
+    // ALUMNI + FACULTY methods will follow similarly...
+}

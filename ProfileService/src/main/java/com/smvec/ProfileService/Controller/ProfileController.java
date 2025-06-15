@@ -1,0 +1,100 @@
+package com.smvec.ProfileService.Controller;
+
+import com.smvec.ProfileService.DTO.*;
+import com.smvec.ProfileService.Service.ProfileService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/onboarding")
+@RequiredArgsConstructor
+@CrossOrigin
+public class ProfileController {
+	private final ProfileService profileService;
+
+	// STUDENT
+
+	@PostMapping("/student")
+	public ResponseEntity<StudentProfileResponse> saveStudent(
+	        @RequestHeader("Authorization") String token,
+	        @RequestBody StudentProfileRequest request
+	) {
+	    StudentProfileResponse response = profileService.saveStudentProfile(token, request);
+	    return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/student")
+	public ResponseEntity<StudentProfileResponse> updateStudent(
+	        @RequestHeader("Authorization") String token,
+	        @RequestBody StudentProfileRequest request
+	) {
+	    StudentProfileResponse response = profileService.updateStudentProfile(token, request);
+	    return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/student")
+	public ResponseEntity<StudentProfileResponse> getStudent(
+	        @RequestHeader("Authorization") String token
+	) {
+	    StudentProfileResponse response = profileService.getStudentProfile(token);
+	    return ResponseEntity.ok(response);
+	}
+
+	// ALUMNI
+
+	@PostMapping("/alumni")
+	public ResponseEntity<AlumniProfileResponse> saveAlumni(
+	        @RequestHeader("Authorization") String token,
+	        @RequestBody AlumniProfileRequest request
+	) {
+	    AlumniProfileResponse response = profileService.saveAlumniProfile(token, request);
+	    return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/alumni")
+	public ResponseEntity<AlumniProfileResponse> updateAlumni(
+	        @RequestHeader("Authorization") String token,
+	        @RequestBody AlumniProfileRequest request
+	) {
+	    AlumniProfileResponse response = profileService.updateAlumniProfile(token, request);
+	    return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/alumni")
+	public ResponseEntity<AlumniProfileResponse> getAlumni(
+	        @RequestHeader("Authorization") String token
+	) {
+	    AlumniProfileResponse response = profileService.getAlumniProfile(token);
+	    return ResponseEntity.ok(response);
+	}
+
+	// FACULTY
+
+	@PostMapping("/faculty")
+	public ResponseEntity<FacultyProfileResponse> saveFaculty(
+	        @RequestHeader("Authorization") String token,
+	        @RequestBody FacultyProfileRequest request
+	) {
+	    FacultyProfileResponse response = profileService.saveFacultyProfile(token, request);
+	    return ResponseEntity.ok(response);
+	}
+
+	@PutMapping("/faculty")
+	public ResponseEntity<FacultyProfileResponse> updateFaculty(
+	        @RequestHeader("Authorization") String token,
+	        @RequestBody FacultyProfileRequest request
+	) {
+	    FacultyProfileResponse response = profileService.updateFacultyProfile(token, request);
+	    return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/faculty")
+	public ResponseEntity<FacultyProfileResponse> getFaculty(
+	        @RequestHeader("Authorization") String token
+	) {
+	    FacultyProfileResponse response = profileService.getFacultyProfile(token);
+	    return ResponseEntity.ok(response);
+	}
+	
+}
