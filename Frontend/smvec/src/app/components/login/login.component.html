@@ -1,0 +1,91 @@
+<div class="login-page">
+  <div class="bg-animation">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="website-name">SMVEC-Onboard</div>
+  
+  <div class="login-container" [class.loading]="isLoading">
+    <div class="login-header">
+      <div class="login-icon">
+        <i class="fas fa-user-graduate"></i>
+      </div>
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to your account to continue</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="Enter your email"
+            [class.error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <i class="fas fa-envelope input-icon"></i>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+          <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <input 
+            [type]="showPassword ? 'text' : 'password'" 
+            id="password" 
+            formControlName="password"
+            placeholder="Enter your password"
+            [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <i class="fas fa-lock input-icon"></i>
+          <i 
+            [class]="showPassword ? 'fas fa-eye-slash password-toggle' : 'fas fa-eye password-toggle'"
+            (click)="togglePassword()"></i>
+        </div>
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid || isLoading" [innerHTML]="buttonText">
+      </button>
+    </form>
+
+    <div class="forgot-password">
+      <a href="#" (click)="showForgotPassword($event)">Forgot your password?</a>
+    </div>
+
+    <div class="divider">
+      <span>or continue with</span>
+    </div>
+
+    <div class="social-login">
+      <div class="social-btn google" (click)="socialLogin('google')">
+        <i class="fab fa-google"></i>
+      </div>
+      <div class="social-btn microsoft" (click)="socialLogin('microsoft')">
+        <i class="fab fa-microsoft"></i>
+      </div>
+      <div class="social-btn apple" (click)="socialLogin('apple')">
+        <i class="fab fa-apple"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error notification -->
+  <div 
+    class="error-notification" 
+    [class.show]="showErrorNotification"
+    *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+  </div>
+</div>

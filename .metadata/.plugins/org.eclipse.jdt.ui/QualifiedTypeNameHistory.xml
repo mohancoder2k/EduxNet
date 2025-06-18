@@ -21,4 +21,19 @@
     <fullyQualifiedTypeName name="com.smvec.ProfileService.Entity.FacultyProfile"/>
     <fullyQualifiedTypeName name="com.smvec.ProfileService.DTO.FacultyProfileRequest"/>
     <fullyQualifiedTypeName name="com.smvec.ProfileService.DTO.AlumniProfileResponse"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+    <fullyQualifiedTypeName name="org.springframework.cloud.client.loadbalancer.LoadBalanced"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.springframework.web.reactive.function.client.WebClient"/>
+    <fullyQualifiedTypeName name="reactor.core.publisher.Mono"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.Repository.ConnectionRequestRepository"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.Config.AuthServiceClient"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.Entity.ConnectionRequest.Status"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.Service.ConnectionRequestService"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.Entity.ConnectionRequest"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.DTO.ConnectionRequestDTO"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.SpringApplication"/>
+    <fullyQualifiedTypeName name="com.smvec.ConnectionService.Configo.TokenUtil"/>
 </qualifiedTypeNameHistroy>
